@@ -30,7 +30,7 @@ public class MccMncActionApi extends BaseActionApi<Void, List<MccMncEntity>> {
             final MutableLiveData<Resource<List<MccMncEntity>>> liveData) {
         super.onAction(aVoid, liveData);
         asyncManager.execute(
-                new MccMncCallableImpl(mccMncDao),
+                mccMncDao::all,
                 new LiveDataListener<>(liveData));
     }
 }

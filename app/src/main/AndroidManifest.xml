@@ -22,7 +22,8 @@
         </activity>
 
         <service
-            android:name=".app.services.mccmncstore.MccMncStoreService"/>
+            android:name=".app.services.mccmncstore.MccMncStoreService"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
     </application>
 
 </manifest>
