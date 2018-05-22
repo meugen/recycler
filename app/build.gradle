@@ -31,4 +31,6 @@ dependencies {
     annotationProcessor deps.dagger.compiler
     implementation deps.dagger.android.core
     annotationProcessor deps.dagger.android.processor
+
+    implementation deps.lifecycle.extensions
 }

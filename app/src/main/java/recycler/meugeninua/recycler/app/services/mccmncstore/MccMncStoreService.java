@@ -6,6 +6,7 @@ import android.content.res.AssetManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.JobIntentService;
 import android.util.JsonReader;
+import android.util.JsonToken;
 import android.util.Log;
 
 import java.io.IOException;
@@ -33,7 +34,6 @@ public class MccMncStoreService extends JobIntentService {
         enqueueWork(context, MccMncStoreService.class, 1000, intent);
     }
 
-    @Inject AppTransactionManager manager;
     @Inject MccMncDao mccMncDao;
 
     @Override
@@ -74,13 +74,47 @@ public class MccMncStoreService extends JobIntentService {
             while (reader.hasNext()) {
                 final String name = reader.nextName();
                 if ("type".equals(name)) {
-                    entity.type = reader.nextString();
+                    entity.type = nextStringOrNull(reader);
                 } else if ("countryName".equals(name)) {
-                    entity.countryName = reader.nextString();
-                } else if ("")
+                    entity.countryName = nextStringOrNull(reader);
+                } else if ("countryCode".equals(name)) {
+                    entity.countryCode = nextStringOrNull(reader);
+                } else if ("mcc".equals(name)) {
+                    entity.mcc = nextStringOrNull(reader);
+                } else if ("mnc".equals(name)) {
+                    entity.mnc = nextStringOrNull(reader);
+                } else if ("brand".equals(name)) {
+                    entity.brand = nextStringOrNull(reader);
+                } else if ("operator".equals(name)) {
+                    entity.operator = nextStringOrNull(reader);
+                } else if ("status".equals(name)) {
+                    entity.status = nextStringOrNull(reader);
+                } else if ("bands".equals(name)) {
+                    entity.bands = nextStringOrNull(reader);
+                } else if ("notes".equals(name)) {
+                    entity.notes = nextStringOrNull(reader);
+                } else {
+                    reader.skipValue();
+                }
             }
             reader.endObject();
+
+            if (!"Test".equals(entity.type) && entity.isValid()) {
+                entities.add(entity);
+            }
         }
         reader.endArray();
+
+        mccMncDao.insert(entities);
+        Log.d(TAG, "Entities are stored");
+    }
+
+    private String nextStringOrNull(
+            final JsonReader reader) throws IOException {
+        if (reader.peek() == JsonToken.NULL) {
+            reader.nextNull();
+            return null;
+        }
+        return reader.nextString();
     }
 }

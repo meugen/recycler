@@ -1,5 +1,8 @@
 package recycler.meugeninua.recycler.ui.activities.main.fragment.binding;
 
+import java.util.List;
+
+import recycler.meugeninua.recycler.model.entities.MccMncEntity;
 import recycler.meugeninua.recycler.ui.activities.base.binding.Binding;
 
 /**
@@ -7,5 +10,11 @@ import recycler.meugeninua.recycler.ui.activities.base.binding.Binding;
  */
 public interface MainBinding extends Binding {
 
-    void setMessage(CharSequence message);
+    void setup();
+
+    void showProgressBar();
+
+    void showEntities(List<MccMncEntity> entities);
+
+    void showError(Throwable t);
 }

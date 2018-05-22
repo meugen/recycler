@@ -1,23 +1,72 @@
 package recycler.meugeninua.recycler.ui.activities.main.fragment.binding;
 
+import android.content.Context;
+import android.support.v4.widget.ContentLoadingProgressBar;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
 import recycler.meugeninua.recycler.R;
+import recycler.meugeninua.recycler.app.di.qualifiers.ActivityContext;
+import recycler.meugeninua.recycler.model.entities.MccMncEntity;
 import recycler.meugeninua.recycler.ui.activities.base.binding.BaseBinding;
+import recycler.meugeninua.recycler.ui.activities.main.fragment.adapters.MccMncAdapter;
 
 /**
  * @author meugen
  */
 public class MainBindingImpl extends BaseBinding implements MainBinding {
 
+    @Inject @ActivityContext Context context;
+    @Inject MccMncAdapter adapter;
+
     @Inject
     MainBindingImpl() {}
 
     @Override
-    public void setMessage(final CharSequence message) {
-        final TextView messageView = get(R.id.message);
-        messageView.setText(message);
+    public void setup() {
+        final RecyclerView recycler = get(R.id.recycler);
+        if (recycler == null) {
+            return;
+        }
+        recycler.addItemDecoration(new DividerItemDecoration(
+                context, DividerItemDecoration.VERTICAL));
+        recycler.setAdapter(adapter);
+    }
+
+    @Override
+    public void showProgressBar() {
+        final ContentLoadingProgressBar progressBar = get(R.id.progress_bar);
+        if (progressBar == null) {
+            return;
+        }
+        progressBar.show();
+    }
+
+    @Override
+    public void showEntities(final List<MccMncEntity> entities) {
+        final ContentLoadingProgressBar progressBar = get(R.id.progress_bar);
+        if (progressBar == null) {
+            return;
+        }
+        progressBar.hide();
+        adapter.swapEntities(entities);
+    }
+
+    @Override
+    public void showError(final Throwable t) {
+        final ContentLoadingProgressBar progressBar = get(R.id.progress_bar);
+        final TextView error = get(R.id.error);
+        if (progressBar == null || error == null) {
+            return;
+        }
+        error.setVisibility(View.VISIBLE);
+        progressBar.hide();
+        error.setText(t.getLocalizedMessage());
     }
 }

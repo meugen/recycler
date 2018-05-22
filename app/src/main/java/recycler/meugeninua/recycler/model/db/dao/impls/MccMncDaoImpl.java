@@ -4,7 +4,9 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -55,6 +57,28 @@ public class MccMncDaoImpl implements MccMncDao {
                 return cursor.getInt(0);
             }
             return 0;
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+    }
+
+    @Override
+    public List<MccMncEntity> all() {
+        return manager.actInTransaction(this::_all);
+    }
+
+    private List<MccMncEntity> _all(final SQLiteDatabase db) {
+        Cursor cursor = null;
+        try {
+            cursor = db.rawQuery("SELECT * FROM mccmnc ORDER BY country_name ASC, operator ASC", new String[0]);
+
+            final List<MccMncEntity> result = new ArrayList<>(cursor.getCount());
+            while (cursor.moveToNext()) {
+                result.add(mccMncMapping.cursorToEntity(cursor));
+            }
+            return result;
         } finally {
             if (cursor != null) {
                 cursor.close();
