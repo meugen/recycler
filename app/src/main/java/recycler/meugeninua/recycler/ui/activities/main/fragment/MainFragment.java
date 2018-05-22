@@ -23,8 +23,6 @@ import recycler.meugeninua.recycler.ui.activities.main.fragment.vm.MainViewModel
  */
 public class MainFragment extends BaseFragment<MainBinding> {
 
-    private static final String TAG = MainFragment.class.getSimpleName();
-
     @Inject MainViewModel viewModel;
 
     @Nullable
