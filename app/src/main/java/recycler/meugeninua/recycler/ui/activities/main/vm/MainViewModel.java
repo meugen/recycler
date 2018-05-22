@@ -11,6 +11,7 @@ import javax.inject.Inject;
 import recycler.meugeninua.recycler.app.managers.events.AppEventsManager;
 import recycler.meugeninua.recycler.app.managers.events.EventMccMncUpdated;
 import recycler.meugeninua.recycler.model.actions.AppActionApi;
+import recycler.meugeninua.recycler.model.data.mccmnc.MccMncBaseItem;
 import recycler.meugeninua.recycler.model.entities.MccMncEntity;
 import recycler.meugeninua.recycler.model.resources.Resource;
 
@@ -19,10 +20,10 @@ import recycler.meugeninua.recycler.model.resources.Resource;
  */
 public class MainViewModel extends ViewModel {
 
-    public final MutableLiveData<Resource<List<MccMncEntity>>> mccMncLiveData;
+    public final MutableLiveData<Resource<List<MccMncBaseItem>>> mccMncLiveData;
 
     @Inject AppEventsManager eventsManager;
-    @Inject AppActionApi<Void, List<MccMncEntity>> actionApi;
+    @Inject AppActionApi<Void, List<MccMncBaseItem>> actionApi;
 
     private UUID key;
 

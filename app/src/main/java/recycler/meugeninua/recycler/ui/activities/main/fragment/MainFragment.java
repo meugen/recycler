@@ -12,6 +12,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import recycler.meugeninua.recycler.R;
+import recycler.meugeninua.recycler.model.data.mccmnc.MccMncBaseItem;
 import recycler.meugeninua.recycler.model.entities.MccMncEntity;
 import recycler.meugeninua.recycler.model.resources.Resource;
 import recycler.meugeninua.recycler.ui.activities.base.fragment.BaseFragment;
@@ -45,7 +46,7 @@ public class MainFragment extends BaseFragment<MainBinding> {
         binding.setup();
     }
 
-    private void onMccMncResource(final Resource<List<MccMncEntity>> resource) {
+    private void onMccMncResource(final Resource<List<MccMncBaseItem>> resource) {
         if (resource.status == Resource.LOADING) {
             binding.showProgressBar();
         } else if (resource.status == Resource.SUCCESS) {

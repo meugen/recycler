@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="mccmnc_total_span_count">2</integer>
+    <integer name="mccmnc_header_span_count">2</integer>
+    <integer name="mccmnc_entity_span_count">1</integer>
+</resources>
