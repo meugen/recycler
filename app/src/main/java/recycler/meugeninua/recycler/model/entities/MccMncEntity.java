@@ -1,6 +1,5 @@
 package recycler.meugeninua.recycler.model.entities;
 
-import android.support.v4.text.TextUtilsCompat;
 import android.text.TextUtils;
 
 /**

@@ -9,7 +9,7 @@ import dagger.multibindings.IntoMap;
 import recycler.meugeninua.recycler.app.di.factories.ViewModelFactory;
 import recycler.meugeninua.recycler.app.di.keys.ViewModelKey;
 import recycler.meugeninua.recycler.app.di.scopes.PerApplication;
-import recycler.meugeninua.recycler.ui.activities.main.fragment.vm.MainViewModel;
+import recycler.meugeninua.recycler.ui.activities.main.vm.MainViewModel;
 
 /**
  * @author meugen

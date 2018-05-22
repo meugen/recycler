@@ -7,7 +7,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import recycler.meugeninua.recycler.app.managers.AppAsyncManager;
-import recycler.meugeninua.recycler.model.actions.AppActionApi;
+import recycler.meugeninua.recycler.model.actions.base.BaseActionApi;
 import recycler.meugeninua.recycler.model.db.dao.MccMncDao;
 import recycler.meugeninua.recycler.model.entities.MccMncEntity;
 import recycler.meugeninua.recycler.model.resources.LiveDataListener;
@@ -16,7 +16,7 @@ import recycler.meugeninua.recycler.model.resources.Resource;
 /**
  * @author meugen
  */
-public class MccMncActionApi implements AppActionApi<Void, List<MccMncEntity>> {
+public class MccMncActionApi extends BaseActionApi<Void, List<MccMncEntity>> {
 
     @Inject AppAsyncManager asyncManager;
     @Inject MccMncDao mccMncDao;
@@ -28,6 +28,7 @@ public class MccMncActionApi implements AppActionApi<Void, List<MccMncEntity>> {
     public void onAction(
             final Void aVoid,
             final MutableLiveData<Resource<List<MccMncEntity>>> liveData) {
+        super.onAction(aVoid, liveData);
         asyncManager.execute(
                 new MccMncCallableImpl(mccMncDao),
                 new LiveDataListener<>(liveData));

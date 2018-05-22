@@ -16,7 +16,7 @@ import recycler.meugeninua.recycler.model.entities.MccMncEntity;
 import recycler.meugeninua.recycler.model.resources.Resource;
 import recycler.meugeninua.recycler.ui.activities.base.fragment.BaseFragment;
 import recycler.meugeninua.recycler.ui.activities.main.fragment.binding.MainBinding;
-import recycler.meugeninua.recycler.ui.activities.main.fragment.vm.MainViewModel;
+import recycler.meugeninua.recycler.ui.activities.main.vm.MainViewModel;
 
 /**
  * @author meugen
@@ -39,7 +39,7 @@ public class MainFragment extends BaseFragment<MainBinding> {
     public void onActivityCreated(@Nullable final Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         viewModel.mccMncLiveData.observe(this, this::onMccMncResource);
-        if (savedInstanceState == null) {
+        if (viewModel.mccMncLiveData.getValue() == null) {
             viewModel.loadMccMnc();
         }
         binding.setup();

@@ -1,7 +1,5 @@
 package recycler.meugeninua.recycler.app.managers;
 
-import android.arch.lifecycle.MutableLiveData;
-
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;

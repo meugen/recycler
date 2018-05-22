@@ -11,14 +11,14 @@ import android.util.Log;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjection;
-import recycler.meugeninua.recycler.app.managers.AppTransactionManager;
+import recycler.meugeninua.recycler.app.managers.events.AppEventsManager;
+import recycler.meugeninua.recycler.app.managers.events.EventMccMncUpdated;
 import recycler.meugeninua.recycler.model.db.dao.MccMncDao;
 import recycler.meugeninua.recycler.model.entities.MccMncEntity;
 
@@ -34,6 +34,7 @@ public class MccMncStoreService extends JobIntentService {
         enqueueWork(context, MccMncStoreService.class, 1000, intent);
     }
 
+    @Inject AppEventsManager eventsManager;
     @Inject MccMncDao mccMncDao;
 
     @Override
@@ -106,6 +107,7 @@ public class MccMncStoreService extends JobIntentService {
         reader.endArray();
 
         mccMncDao.insert(entities);
+        eventsManager.post(new EventMccMncUpdated());
         Log.d(TAG, "Entities are stored");
     }
 
